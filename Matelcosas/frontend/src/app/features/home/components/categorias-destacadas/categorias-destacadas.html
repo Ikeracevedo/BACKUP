@@ -1,0 +1,28 @@
+<section class="categories-section">
+  <div class="header">
+    <h2>Explora nuestras categorías</h2>
+    <a routerLink="/categorias" class="view-all">Ver todo →</a>
+  </div>
+
+  <div class="carousel-container">
+    <div class="carousel" *ngIf="categorias && categorias.length">
+      <div
+        class="categoria-card"
+        *ngFor="let categoria of categorias"
+      >
+        <div class="circle">
+          <img
+            [src]="imageUrl(categoria)"
+            [alt]="categoria.nombre"
+            (error)="onImgError($event)"
+          />
+        </div>
+        <p>{{ categoria.nombre }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!categorias?.length" class="state">
+    No hay categorías disponibles
+  </div>
+</section>

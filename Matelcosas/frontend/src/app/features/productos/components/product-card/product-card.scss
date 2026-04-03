@@ -1,0 +1,102 @@
+.product-card {
+  width: 280px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+
+  .image-container {
+    position: relative;
+    height: 220px;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    &:hover img {
+      transform: scale(1.05);
+    }
+
+    .badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: #e91e63;
+      color: white;
+      font-size: 0.8rem;
+      padding: 4px 8px;
+      border-radius: 6px;
+
+      &.stock {
+        background: #f9a825;
+        top: auto;
+        bottom: 10px;
+      }
+
+      &.oferta {
+        background: #ff4081;
+      }
+    }
+  }
+
+  .product-info {
+    padding: 1rem;
+
+    h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #111;
+      margin-bottom: 0.3rem;
+    }
+
+    .descripcion {
+      color: #666;
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .precio {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.8rem;
+
+      .oferta {
+        color: #e53935;
+        font-weight: 700;
+      }
+
+      .tachado {
+        text-decoration: line-through;
+        color: #999;
+      }
+    }
+
+    .btn-carrito {
+      background: #111;
+      color: white;
+      border: none;
+      padding: 0.7rem;
+      border-radius: 8px;
+      font-weight: 600;
+      width: 100%;
+      transition: background 0.3s;
+
+      &:hover {
+        background: #333;
+      }
+    }
+  }
+}

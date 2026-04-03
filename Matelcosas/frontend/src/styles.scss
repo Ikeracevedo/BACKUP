@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+
+body {
+  font-family: 'Poppins', sans-serif;
+  color: #222;
+}
+
+
+/* Reset y control global de layout */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden; /* elimina desplazamiento lateral */
+  background-color: #ffffff;
+  scroll-behavior: smooth;
+  box-sizing: border-box;
+}
+
+/* aplica box-sizing a todo */
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+/* opcional: quitar borde blanco visible */
+body {
+  border: none;
+}
+
+:root {
+  //Colores principales
+  --primario: #2563eb;
+  --primario-oscuro: #1e40af;
+  --primario-claro: #66b2ff;
+  --secundario: #f1c40f;
+  --negro: #111827;
+  --gris: #6b7280;
+  --gris-claro: #f3f4f6;
+  --blanco: #ffffff;
+
+  // Degradados disponibles
+  --degradado-azul: linear-gradient(135deg, var(--primario-oscuro) 0%, var(--primario) 50%, var(--primario-claro) 100%);
+  --degradado-amarillo: linear-gradient(135deg, #f1c40f 0%, #f39c12 100%);
+  --degradado-rojo: linear-gradient(135deg, #b31217 0%, #e52d27 100%);
+
+  --degradado-azul-vertical: linear-gradient(to bottom, var(--primario-oscuro), var(--primario-claro));
+  --degradado-azul-horizontal: linear-gradient(to right, var(--primario-oscuro), var(--primario-claro));
+  --degradado-azul-radial: radial-gradient(circle, var(--primario-claro), var(--primario), var(--primario-oscuro));
+
+  //Sombras textos
+  --sombra-baja: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  --sombra-media: 2px 2px 4px rgba(0, 0, 0, 0.2);
+
+  //Bordes 
+  --borde-corto: 5px
+  --borde-normal: 10px
+  --borde-grande: 20px
+}

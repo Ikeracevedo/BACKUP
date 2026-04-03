@@ -1,0 +1,121 @@
+<!-- Contenedor principal -->
+<div class="dashboard-contenedor">
+
+  <!-- Cabecera -->
+  <div class="dashboard-cabecera">
+    <div>
+      <h1>Panel de Control</h1>
+      <p class="subtitulo">Resumen general de la plataforma</p>
+    </div>
+  </div>
+
+  <!-- Cargando informacion -->
+  <div *ngIf="cargando" class="contenedor-cargando">
+    <div class="spinner"></div>
+    <p>Cargando estadísticas...</p>
+  </div>
+
+  <!-- Contenido de las metricas -->
+  <!-- Tarjetas principales de resumen -->
+  <div class="tarjetas-principales">
+    <!-- Tarjeta productos -->
+    <div class="tarjeta-estadistica productos">
+      <div class="card-icono">
+        <i class="pi pi-box"></i>
+      </div>
+      <div class="card-info">
+        <h3>{{ estadisticasProductos.total }}</h3>
+        <p>Total Productos</p>
+        <div class="card-detalles">
+          <span class="badge activo">{{ estadisticasProductos.activos }} Activos</span>
+          <span class="badge inactivo">{{ estadisticasProductos.inactivos }} Inactivos</span>
+        </div>
+      </div>
+    </div>
+    <!-- Tarjeta categorias -->
+    <div class="tarjeta-estadistica categorias">
+      <div class="card-icono">
+        <i class="pi pi-tags"></i>
+      </div>
+      <div class="card-info">
+        <h3>{{ estadisticasCategorias.total }}</h3>
+        <p>Categorías</p>
+        <div class="card-detalles">
+          <span class="badge activo">{{ estadisticasCategorias.activas }} Activas</span>
+          <span class="badge inactivo">{{ estadisticasCategorias.inactivas }} Inactivas</span>
+        </div>
+      </div>
+    </div>
+    <!-- Tarjeta contactos -->
+    <div class="tarjeta-estadistica contactos">
+      <div class="card-icono">
+        <i class="pi pi-envelope"></i>
+      </div>
+      <div class="card-info">
+        <h3>{{ estadisticasContactos.total }}</h3>
+        <p>Mensajes de Contacto</p>
+        <div class="card-detalles">
+          <span class="badge pendiente">{{ estadisticasContactos.pendientes }} Pendientes</span>
+          <span class="badge atendido">{{ estadisticasContactos.atendidos }} Atendidos</span>
+        </div>
+      </div>
+    </div>
+    <!-- Tarjeta inventario -->
+    <div class="tarjeta-estadistica inventario">
+      <div class="card-icono">
+        <i class="pi pi-shopping-cart"></i>
+      </div>
+      <div class="card-info">
+        <h3>{{ estadisticasProductos.stockTotal }}</h3>
+        <p>Inventario Total</p>
+        <div class="card-detalles">
+          <span class="badge alerta">{{ estadisticasProductos.sinStock }} Sin Stock</span>
+        </div>
+      </div>
+    </div>
+  </div>
+    
+    <!-- Mensajes mas recientes -->
+    <div class="seccion-mensajes full-width">
+      <div class="seccion-cabecera">
+        <h2>Mensajes Recientes</h2>
+        <a routerLink="/admin/contactos" class="ver-todos">Ver todos</a>
+      </div>
+      <div class="section-content">
+        <div *ngIf="estadisticasContactos.recientes.length > 0" class="tabla-contactos">
+          <table>
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Teléfono</th>
+                <th>Mensaje</th>
+                <th>Fecha</th>
+                <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let contacto of estadisticasContactos.recientes">
+                <td>{{ contacto.nombre }}</td>
+                <td>{{ contacto.correo }}</td>
+                <td>{{ contacto.telefono }}</td>
+                <td class="mensaje-cell">{{ contacto.mensaje }}</td>
+                <td>{{ contacto.fecha }}</td>
+                <td>
+                  <span class="estado-badge" 
+                        [class.estado-atendido]="contacto.estado === true || contacto.estado === 'true'"
+                        [class.estado-pendiente]="contacto.estado === false || contacto.estado === 'false'">
+                    {{ (contacto.estado === true || contacto.estado === 'true') ? 'Atendido' : 'Pendiente' }}
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div *ngIf="estadisticasContactos.recientes.length === 0" class="estado-vacio">
+          <i class="pi pi-inbox"></i>
+          <p>No hay mensajes recientes</p>
+        </div>
+      </div>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+C:\Users\Iker\Desktop\Projects\Leccion01\bin\Debug\net10.0\Leccion01.exe
+C:\Users\Iker\Desktop\Projects\Leccion01\bin\Debug\net10.0\Leccion01.deps.json
+C:\Users\Iker\Desktop\Projects\Leccion01\bin\Debug\net10.0\Leccion01.runtimeconfig.json
+C:\Users\Iker\Desktop\Projects\Leccion01\bin\Debug\net10.0\Leccion01.dll
+C:\Users\Iker\Desktop\Projects\Leccion01\bin\Debug\net10.0\Leccion01.pdb
+C:\Users\Iker\Desktop\Projects\Leccion01\obj\Debug\net10.0\Leccion01.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Iker\Desktop\Projects\Leccion01\obj\Debug\net10.0\Leccion01.AssemblyInfoInputs.cache
+C:\Users\Iker\Desktop\Projects\Leccion01\obj\Debug\net10.0\Leccion01.AssemblyInfo.cs
+C:\Users\Iker\Desktop\Projects\Leccion01\obj\Debug\net10.0\Leccion01.csproj.CoreCompileInputs.cache
+C:\Users\Iker\Desktop\Projects\Leccion01\obj\Debug\net10.0\Leccion01.dll
+C:\Users\Iker\Desktop\Projects\Leccion01\obj\Debug\net10.0\refint\Leccion01.dll
+C:\Users\Iker\Desktop\Projects\Leccion01\obj\Debug\net10.0\Leccion01.pdb
+C:\Users\Iker\Desktop\Projects\Leccion01\obj\Debug\net10.0\Leccion01.genruntimeconfig.cache
+C:\Users\Iker\Desktop\Projects\Leccion01\obj\Debug\net10.0\ref\Leccion01.dll

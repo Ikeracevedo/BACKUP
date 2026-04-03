@@ -1,0 +1,69 @@
+<!-- Formulario principal -->
+<div class="formulario-principal" [class.editing-mode]="modoEdicion">
+    <div class="cabecera">
+      <div class="cabecera-icono">
+
+      </div>
+      <h3>{{ modoEdicion ? 'Editar Categoría' : 'Nueva Categoría' }}</h3>
+    </div>
+
+    <!-- Formularo con los inputs-->
+    <div class="formulario">
+      <!-- Nombre de la categoria -->
+      <div class="input-group">
+        <label class="input-label">
+          Nombre de la categoría
+        </label>
+        <input
+          [(ngModel)]="categoria.nombre"
+          placeholder="Ej: Electrónica, Ropa, Hogar..."
+          class="input-field"
+          [class.filled]="categoria.nombre"
+        />
+      </div>
+      
+      <!-- Espacio de la descripccion-->
+      <div class="input-group">
+        <label class="input-label">
+          Descripción
+        </label>
+        <textarea
+          [(ngModel)]="categoria.descripcion"
+          placeholder="Describe brevemente esta categoría..."
+          class="input-field textarea-field"
+          rows="3"
+          [class.filled]="categoria.descripcion"
+        ></textarea>
+      </div>
+
+      <!-- Selector de estado-->
+      <div class="input-group">
+        <label class="input-label">
+          Estado
+        </label>
+        <div class="toggle-container">
+          <select name="estado" [(ngModel)]="categoria.estado" class="input-field">
+            <option value="Activo" selected>Activo</option>
+            <option value="Inactivo">Inactivo</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="botones-formulario">
+        <button
+          (click)="guardarCategoria()"
+          class="btn btn-primario"
+          [disabled]="!categoria.nombre.trim()"
+          >
+          {{ modoEdicion ? 'Actualizar' : 'Agregar' }}
+        </button>
+        <button
+          *ngIf="modoEdicion"
+          (click)="cancelarEdicion()"
+          class="btn btn-secundario"
+        >
+          Cancelar
+        </button>
+      </div>
+    </div>
+  </div>

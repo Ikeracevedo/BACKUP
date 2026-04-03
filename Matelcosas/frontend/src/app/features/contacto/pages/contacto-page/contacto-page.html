@@ -1,0 +1,40 @@
+<div class="contacto-container">
+  <h2>Contáctanos</h2>
+
+  <form [formGroup]="contactoForm" (ngSubmit)="enviarMensaje()">
+    <div class="form-group">
+      <label>Nombre</label>
+      <input type="text" formControlName="nombre" placeholder="Tu nombre" />
+      <small *ngIf="contactoForm.get('nombre')?.touched && contactoForm.get('nombre')?.invalid">
+        El nombre es obligatorio.
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label>Correo electrónico</label>
+      <input type="email" formControlName="correo" placeholder="tucorreo@ejemplo.com" />
+      <small *ngIf="contactoForm.get('correo')?.touched && contactoForm.get('correo')?.invalid">
+        Ingresa un correo válido.
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label>Asunto</label>
+      <input type="text" formControlName="asunto" placeholder="Motivo del mensaje" />
+    </div>
+
+    <div class="form-group">
+      <label>Mensaje</label>
+      <textarea formControlName="mensaje" rows="5" placeholder="Escribe tu mensaje aquí..."></textarea>
+      <small *ngIf="contactoForm.get('mensaje')?.touched && contactoForm.get('mensaje')?.invalid">
+        El mensaje debe tener al menos 10 caracteres.
+      </small>
+    </div>
+
+    <button type="submit">Enviar</button>
+  </form>
+
+  <div *ngIf="enviado" class="mensaje-exito">
+    ✅ ¡Tu mensaje ha sido enviado exitosamente!
+  </div>
+</div>

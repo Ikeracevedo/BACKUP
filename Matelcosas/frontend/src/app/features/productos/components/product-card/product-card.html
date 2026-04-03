@@ -1,0 +1,23 @@
+<div class="product-card">
+  <div class="image-container">
+    <img [src]="obtenerImagenPrincipal()" alt="{{ producto.nombre }}" />
+    <div *ngIf="tieneDescuento()" class="badge oferta">-{{ porcentajeDescuento() }}% Off</div>
+    <div *ngIf="producto.stockTotal < 10" class="badge stock">Poca disp. ({{ producto.stockTotal }})</div>
+  </div>
+
+  <div class="product-info">
+    <h3>{{ producto.nombre }}</h3>
+    <p class="descripcion">{{ producto.descripcionCorta }}</p>
+
+    <div class="precio">
+      <span class="oferta" *ngIf="tieneDescuento()">
+        {{ producto.precioOferta | currency:'COP':'symbol':'1.0-0' }}
+      </span>
+      <span [class.tachado]="tieneDescuento()">
+        {{ producto.precioBase | currency:'COP':'symbol':'1.0-0' }}
+      </span>
+    </div>
+
+    <button class="btn-carrito">Añadir al carrito</button>
+  </div>
+</div>

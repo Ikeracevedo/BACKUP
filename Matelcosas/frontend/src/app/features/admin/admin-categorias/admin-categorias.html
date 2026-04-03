@@ -1,0 +1,184 @@
+<div class="admin-categorias-contenedor">
+  <!-- Header con animación -->
+  <div class="header-section">
+    <div class="header-content">
+      <h1 class="main-title">
+        Gestión de Categorías
+      </h1> 
+      <p class="subtitle">Administra las categorías de tus productos</p>
+    </div>
+    <div class="stats-badge">
+      <span class="badge-number">{{ categorias.length }}</span>
+      <span class="badge-label">Categorías</span>
+    </div>
+  </div>
+
+  <!-- Botón para mostrar/ocultar formulario -->
+  <div class="form-toggle-container">
+    <button
+      class="btn-toggle-form"
+      (click)="palancaFormulario()"
+      [class.active]="mostrarFormulario"
+    >
+      {{ mostrarFormulario ? 'Cerrar Formulario' : 'Crear Categoría' }}
+    </button>
+  </div>
+
+  <!-- Componente de formulario -->
+<div id="formulario-categoria">
+  <app-crear-categoria
+    *ngIf="mostrarFormulario"
+    [modoEdicion]="modoEdicion"
+    [categoriaEditar]="categoriaEditando"
+    (onGuardar)="manejarGuardado($event)"
+    (onCancelar)="cerrarFormulario()"
+  ></app-crear-categoria>
+</div>
+
+
+
+  <!-- Grid de categorías con cards -->
+  <div class="categorias-section">
+    <div class="section-header">
+      <h3 class="section-title">
+        <span class="icon">📋</span>
+        Todas las Categorías
+      </h3>
+      <div class="view-toggle">
+        <button
+          class="toggle-btn"
+          [class.active]="vistaActual === 'grid'"
+          (click)="vistaActual = 'grid'"
+          title="Vista en Cuadrícula"
+        >
+          ⊞
+        </button>
+        <button
+          class="toggle-btn"
+          [class.active]="vistaActual === 'list'"
+          (click)="vistaActual = 'list'"
+          title="Vista en Lista"
+        >
+          ☰
+        </button>
+      </div>
+    </div>
+
+    <!-- Vista Grid -->
+    <div class="categorias-grid" *ngIf="vistaActual === 'grid'">
+      <div
+        *ngFor="let cat of categorias; let i = index"
+        class="categoria-card"
+        [class.editando]="categoriaEditando?._id === cat._id"
+        [style.animation-delay]="(i * 0.05) + 's'"
+      >
+        <div class="card-badge" *ngIf="categoriaEditando?._id === cat._id">
+          Editando
+        </div>
+
+        <div class="card-image">
+          <img
+            *ngIf="cat.imagen"
+            [src]="cat.imagen"
+            [alt]="cat.nombre"
+            class="categoria-imagen"
+          />
+          <div *ngIf="!cat.imagen" class="image-placeholder">
+            <span class="placeholder-icon">🏷️</span>
+          </div>
+        </div>
+
+        <div class="card-content">
+          <h4 class="card-title">{{ cat.nombre }}</h4>
+          <p class="card-description">
+            {{ cat.descripcion || 'Sin descripción' }}
+          </p>
+          <span class="badge" [class.activo]="cat.estado === 'Activo'" [class.inactivo]="cat.estado === 'Inactivo'">
+            {{ cat.estado }}
+          </span>
+        </div>
+
+        <div class="card-actions">
+          <button
+            (click)="editarCategoria(cat)"
+            class="action-btn edit-btn"
+            title="Editar"
+          >
+            <span class="btn-text">Editar</span>
+          </button>
+          <button
+            [routerLink]="['/admin/categorias/subir-imagen', cat._id]"
+            class="action-btn image-btn"
+            title="Subir Imagen"
+          >
+            <span class="btn-text">Imagen</span>
+          </button>
+          <button
+            (click)="eliminarCategoria(cat._id)"
+            class="action-btn delete-btn"
+            title="Eliminar"
+          >
+            <span class="btn-text">Eliminar</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vista Lista -->
+    <div class="categorias-list" *ngIf="vistaActual === 'list'">
+      <div
+        *ngFor="let cat of categorias; let i = index"
+        class="categoria-item"
+        [class.editando]="categoriaEditando?._id === cat._id"
+        [style.animation-delay]="(i * 0.03) + 's'"
+      >
+        <div class="item-badge" *ngIf="categoriaEditando?._id === cat._id">
+          ✏️ Editando
+        </div>
+
+        <div class="item-icon">
+          <span>🏷️</span>
+        </div>
+
+        <div class="item-content">
+          <h4 class="item-title">{{ cat.nombre }}</h4>
+          <p class="item-description">{{ cat.descripcion || 'Sin descripción' }}</p>
+          <span class="badge" [class.activo]="cat.estado === 'Activo'" [class.inactivo]="cat.estado === 'Inactivo'">
+            {{ cat.estado }}
+          </span>
+        </div>
+
+        <div class="item-actions">
+          <button
+            (click)="editarCategoria(cat)"
+            class="action-btn edit-btn"
+            title="Editar"
+          >
+            <span class="btn-text">Editar</span>
+          </button>
+          <button
+            [routerLink]="['/admin/categorias/subir-imagen', cat._id]"
+            class="action-btn image-btn"
+            title="Subir Imagen"
+          >
+            <span class="btn-text">Imagen</span>
+          </button>
+          <button
+            (click)="eliminarCategoria(cat._id)"
+            class="action-btn delete-btn"
+            title="Eliminar"
+          >
+            <span class="btn-text">Eliminar</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Estado vacío -->
+    <div *ngIf="categorias.length === 0" class="empty-state">
+      <div class="empty-icon">📦</div>
+      <h3 class="empty-title">No hay categorías</h3>
+      <p class="empty-text">Crea tu primera categoría para comenzar</p>
+    </div>
+  </div>
+</div>

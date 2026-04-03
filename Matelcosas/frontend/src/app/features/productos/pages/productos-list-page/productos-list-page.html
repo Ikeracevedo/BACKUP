@@ -1,0 +1,11 @@
+<section class="productos-list-section">
+  <h2>Todos los productos</h2>
+
+  <div class="productos-grid">
+    <app-product-card
+      *ngFor="let producto of productos"
+      [producto]="producto"
+      (click)="verDetalle(producto._id)">
+    </app-product-card>
+  </div>
+</section>

@@ -1,0 +1,429 @@
+<!-- HERO SECTION CON VIDEO/IMAGEN DE FONDO -->
+<section class="hero-principal">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <span class="hero-badge" data-aos="fade-down">⚡ Más de 10 años iluminando Colombia</span>
+    <h1 data-aos="fade-up" data-aos-delay="100">
+      Soluciones <span class="text-highlight">Eléctricas</span><br>
+      Para Tu Hogar y Empresa
+    </h1>
+    <p class="hero-description" data-aos="fade-up" data-aos-delay="200">
+      Calidad certificada, asesoría experta y productos que transforman tus proyectos eléctricos
+    </p>
+    
+    <div class="hero-buttons" data-aos="fade-up" data-aos-delay="300">
+      <button class="btn-hero-primary" routerLink="/productos">
+        <i class="fas fa-shopping-bag"></i> Ver Catálogo
+      </button>
+      <button class="btn-hero-secondary" (click)="abrirWhatsapp()">
+        <i class="fab fa-whatsapp"></i> Asesoría Gratis
+      </button>
+    </div>
+
+    <div class="hero-stats" data-aos="fade-up" data-aos-delay="400">
+      <div class="stat-item">
+        <span class="stat-number">+800</span>
+        <span class="stat-label">Clientes</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-number">+1600</span>
+        <span class="stat-label">Productos</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-number">4.8★</span>
+        <span class="stat-label">Calificación</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Animated Elements -->
+  <div class="hero-floating-elements">
+    <div class="floating-icon icon-1"><i class="fas fa-lightbulb"></i></div>
+    <div class="floating-icon icon-2"><i class="fas fa-plug"></i></div>
+    <div class="floating-icon icon-3"><i class="fas fa-bolt"></i></div>
+  </div>
+</section>
+
+<!-- MARCAS ALIADAS -->
+<section class="brands-section">
+  <div class="container">
+    <h3 class="brands-title" data-aos="fade-up">Trabajamos con las mejores marcas</h3>
+    <div class="brands-slider" data-aos="fade-up" data-aos-delay="200">
+      <div class="brand-item">SCHNEIDER</div>
+      <div class="brand-item">ABB</div>
+      <div class="brand-item">LEGRAND</div>
+      <div class="brand-item">SIEMENS</div>
+      <div class="brand-item">PHILIPS</div>
+      <div class="brand-item">3M</div>
+    </div>
+  </div>
+</section>
+
+<!-- Primera seccion de confianza y trayectoria -->
+<section class="about-section-blue">
+  <div class="about-container">
+    
+    <div class="about-text" data-aos="fade-right">
+      <span class="badge-new">✨ Líderes en el sector</span>
+      <h4>Confianza y Trayectoria</h4>
+      <h2>
+        Más de 10 años transformando el mercado colombiano
+      </h2>
+
+      <p class="main-description">
+        En <strong>Matelcosas</strong> ofrecemos soluciones integrales en herramientas,
+        iluminación y productos eléctricos para hogares y empresas.
+        Garantizamos calidad, asesoría profesional y servicio confiable respaldado por años de experiencia.
+      </p>
+
+      <div class="stats">
+        <div class="stat" data-aos="zoom-in" data-aos-delay="100">
+          <div class="stat-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <span class="counter">+800</span>
+          <span class="stat-label">Clientes satisfechos</span>
+        </div>
+        <div class="stat" data-aos="zoom-in" data-aos-delay="200">
+          <div class="stat-icon">
+            <i class="fas fa-box"></i>
+          </div>
+          <span class="counter">+1600</span>
+          <span class="stat-label">Productos disponibles</span>
+        </div>
+        <div class="stat" data-aos="zoom-in" data-aos-delay="300">
+          <div class="stat-icon">
+            <i class="fas fa-handshake"></i>
+          </div>
+          <span class="counter">+70</span>
+          <span class="stat-label">Empresas aliadas</span>
+        </div>
+      </div>
+
+      <div class="trust-indicators">
+        <div class="trust-item">
+          <i class="fas fa-check-circle"></i>
+          <span>Productos originales</span>
+        </div>
+        <div class="trust-item">
+          <i class="fas fa-shield-alt"></i>
+          <span>Garantía certificada</span>
+        </div>
+        <div class="trust-item">
+          <i class="fas fa-star"></i>
+          <span>Calificación 4.8/5</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="about-image" data-aos="fade-left">
+      <div class="image-wrapper">
+        <img src="assets/img/landing/imagen-02.jpg" alt="Matelcosas productos eléctricos">
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Segunda seccion certificados -->
+<section class="certifications-section">
+  <div class="container">
+
+    <div class="seccion-cabecera" data-aos="fade-up">
+      <span class="section-badge">Calidad garantizada</span>
+      <h4>Productos certificados</h4>
+      <h2>Calidad que cumple con todas las normas eléctricas</h2>
+      <p class="section-description">
+        Todos nuestros productos cumplen con estándares técnicos y de seguridad
+        exigidos en Colombia. Tu seguridad es nuestra prioridad.
+      </p>
+    </div>
+
+    <div class="certified-grid">
+      <div class="certified-card" *ngFor="let item of certifications; let i = index" 
+           data-aos="fade-up" 
+           [attr.data-aos-delay]="i * 100">
+        <div class="icon-wrapper">
+          <i class="{{ item.icon }}"></i>
+        </div>
+        <h3>{{ item.title }}</h3>
+        <p>{{ item.description }}</p>
+        <div class="card-shine"></div>
+      </div>
+    </div>
+
+    <div class="certificados-logos" data-aos="fade-up" data-aos-delay="400">
+      <p class="logos-title">Certificados por:</p>
+      <div class="logos-row">
+        <div class="logo-item" (click)="certificadoRETIE()">RETIE</div>
+        <div class="logo-item" (click)="cerrificadoISO()">ISO 9001</div>
+        <div class="logo-item" (click)="certificadoNTC()">NTC 2050</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Seccion de valor -->
+<section class="value-section">
+  <div class="about-container">
+
+    <div class="about-image" data-aos="fade-right">
+      <div class="image-wrapper-value">
+        <img src="assets/img/landing/imagen-01.jpg" alt="Calidad Matelcosas">
+      </div>
+    </div>
+
+    <div class="about-text" data-aos="fade-left">
+      <span class="badge-new">💎 Tu mejor elección</span>
+      <h4>Experiencia comprobada</h4>
+      <h2>Soluciones eléctricas confiables y duraderas</h2>
+
+      <p class="main-description">
+        Contamos con personal altamente capacitado y aliados estratégicos para ofrecer
+        productos seguros, duraderos y eficientes. Nos comprometemos con la excelencia en cada proyecto.
+      </p>
+
+      <div class="features-grid">
+        <div class="feature-card" data-aos="flip-left" data-aos-delay="100">
+          <div class="feature-icon">🛡️</div>
+          <h5>Certificación</h5>
+          <span>Normativa eléctrica colombiana</span>
+        </div>
+        <div class="feature-card" data-aos="flip-left" data-aos-delay="200">
+          <div class="feature-icon">⚡</div>
+          <h5>Asesoría técnica</h5>
+          <span>Soporte experto 24/7</span>
+        </div>
+        <div class="feature-card" data-aos="flip-left" data-aos-delay="300">
+          <div class="feature-icon">🧾</div>
+          <h5>Garantía extendida</h5>
+          <span>Respaldo real en todos tus productos</span>
+        </div>
+        <div class="feature-card" data-aos="flip-left" data-aos-delay="400">
+          <div class="feature-icon">🚚</div>
+          <h5>Entrega rápida</h5>
+          <span>Logística eficiente en todo el país</span>
+        </div>
+      </div>
+
+      <div class="trust-badges" data-aos="fade-up" data-aos-delay="500">
+        <span><i class="fas fa-check"></i> Marcas reconocidas</span>
+        <span><i class="fas fa-check"></i> Uso profesional</span>
+        <span><i class="fas fa-check"></i> Seguridad eléctrica</span>
+        <span><i class="fas fa-check"></i> Eficiencia energética</span>
+      </div>
+
+      <button class="btn-primary" data-aos="fade-up" data-aos-delay="600" (click)="abrirWhatsapp()">
+        <i class="fas fa-phone-alt"></i> Solicitar asesoría
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<!-- Seccion de entrega -->
+<section class="delivery-section">
+  <div class="container">
+
+    <div class="section-header" data-aos="fade-up">
+      <span class="section-badge">Proceso optimizado</span>
+      <h2>Entrega confiable y disponibilidad inmediata</h2>
+      <p class="section-description">
+        Procesos logísticos eficientes para cumplir cada pedido a tiempo y con la mejor calidad.
+      </p>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-step" *ngFor="let step of deliverySteps; let i = index" 
+           data-aos="fade-up" 
+           [attr.data-aos-delay]="i * 150">
+        <div class="step-number">{{ i + 1 }}</div>
+        <div class="step-icon">
+          <i class="{{ step.icon }}"></i>
+        </div>
+        <h3>{{ step.title }}</h3>
+        <p>{{ step.description }}</p>
+        <div class="step-line" *ngIf="i < deliverySteps.length - 1"></div>
+      </div>
+    </div>
+
+    <div class="delivery-benefits" data-aos="fade-up" data-aos-delay="600">
+      <div class="benefit-item">
+        <i class="fas fa-clock"></i>
+        <span>Entrega en 24-48 horas</span>
+      </div>
+      <div class="benefit-item">
+        <i class="fas fa-map-marked-alt"></i>
+        <span>Cobertura nacional</span>
+      </div>
+      <div class="benefit-item">
+        <i class="fas fa-box-open"></i>
+        <span>Empaque seguro</span>
+      </div>
+      <div class="benefit-item">
+        <i class="fas fa-headset"></i>
+        <span>Seguimiento en tiempo real</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-final">
+  <div class="cta-content" data-aos="zoom-in">
+    <div class="cta-icon">
+      <i class="fas fa-bolt"></i>
+    </div>
+    <h2>¿Listo para tu proyecto eléctrico?</h2>
+    <p>Recibe asesoría profesional, productos certificados y la mejor atención del mercado</p>
+    
+    <div class="cta-buttons">
+      <button class="btn-primary-cta" (click)="abrirWhatsapp()">
+        <i class="fas fa-comments"></i> Cotizar ahora
+      </button>
+      <button class="btn-secondary-cta" (click)="abrirWhatsapp()">
+        <i class="fas fa-phone"></i> Llamar ahora
+      </button>
+    </div>
+
+    <!--<div class="cta-features">
+      <div class="cta-feature-item">
+        <i class="fas fa-shipping-fast"></i>
+        <span>Envío gratis en compras +$150.000</span>
+      </div>
+      <div class="cta-feature-item">
+        <i class="fas fa-credit-card"></i>
+        <span>Múltiples métodos de pago</span>
+      </div>
+      <div class="cta-feature-item">
+        <i class="fas fa-undo"></i>
+        <span>Devoluciones sin complicaciones</span>
+      </div>
+    </div> -->
+  </div>
+
+  <div class="cta-background-animation">
+    <div class="circle circle-1"></div>
+    <div class="circle circle-2"></div>
+    <div class="circle circle-3"></div>
+  </div>
+</section>
+
+<!-- Seccion de testimonios -->
+<section class="testimonials-section">
+  <div class="container">
+    
+    <div class="section-header" data-aos="fade-up">
+      <span class="section-badge">Comentarios de nuestros clientes</span>
+      <h2>Lo que dicen nuestros clientes</h2>
+      <p class="section-description">
+        Miles de clientes satisfechos respaldan la calidad de nuestros productos y servicios.
+      </p>
+    </div>
+
+    <div class="testimonials-grid">
+      <div class="testimonial-card" data-aos="fade-up" data-aos-delay="100">
+        <div class="stars">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+        </div>
+        <p class="testimonial-text">
+          "Excelente servicio y productos de alta calidad. El equipo técnico me asesoró 
+          perfectamente para mi proyecto eléctrico residencial."
+        </p>
+        <div class="testimonial-author">
+          <div class="author-avatar">JM</div>
+          <div>
+            <h4>Juan Martínez</h4>
+            <span>Constructor - Bogotá</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card" data-aos="fade-up" data-aos-delay="200">
+        <div class="stars">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+        </div>
+        <p class="testimonial-text">
+          "Compro regularmente para mi ferretería. Precios competitivos, entrega rápida 
+          y productos certificados. ¡100% recomendados!"
+        </p>
+        <div class="testimonial-author">
+          <div class="author-avatar">MR</div>
+          <div>
+            <h4>María Rodríguez</h4>
+            <span>Ferretería El Progreso</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card" data-aos="fade-up" data-aos-delay="300">
+        <div class="stars">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+        </div>
+        <p class="testimonial-text">
+          "Como electricista profesional, confío en Matelcosas para todos mis proyectos. 
+          Calidad garantizada y excelente atención al cliente."
+        </p>
+        <div class="testimonial-author">
+          <div class="author-avatar">CR</div>
+          <div>
+            <h4>Carlos Ramírez</h4>
+            <span>Electricista Certificado</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER INFO (Opcional) -->
+<section class="footer-info">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h3>¿Por qué Matelcosas?</h3>
+        <ul class="footer-list">
+          <li><i class="fas fa-check-circle"></i> 10+ años de experiencia</li>
+          <li><i class="fas fa-check-circle"></i> Productos certificados</li>
+          <li><i class="fas fa-check-circle"></i> Asesoría especializada</li>
+          <li><i class="fas fa-check-circle"></i> Entrega en todo Colombia</li>
+        </ul>
+      </div>
+      
+      <div class="footer-col">
+        <h3>Contacto</h3>
+        <ul class="contact-list">
+          <li><i class="fas fa-phone"></i> +57 123 456 7890</li>
+          <li><i class="fas fa-envelope"></i> ventas@matelco.com</li>
+          <li><i class="fas fa-map-marker-alt"></i> Ubicacion</li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h3>Síguenos</h3>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-whatsapp"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

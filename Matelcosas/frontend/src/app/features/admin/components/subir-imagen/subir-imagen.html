@@ -1,0 +1,24 @@
+<div class="admin-upload-container">
+  <h2>📤 Subir imagen de categoría</h2>
+  <p>ID de categoría: <strong>{{ categoriaId }}</strong></p>
+
+  <div class="preview" *ngIf="preview">
+    <img [src]="preview" alt="Vista previa" />
+  </div>
+
+  <input type="file" (change)="onFileSelected($event)" accept="image/*" />
+
+  <button class="btn-upload" (click)="onUpload()" [disabled]="loading">
+    {{ loading ? 'Subiendo...' : 'Subir Imagen' }}
+  </button>
+
+  <div class="progress" *ngIf="uploadProgress > 0 && uploadProgress < 100">
+    <div class="progress-bar" [style.width.%]="uploadProgress"></div>
+  </div>
+
+  <p class="message" [class.success]="message.includes('✅')" [class.error]="message.includes('❌')">
+    {{ message }}
+  </p>
+
+  <button class="btn-back" (click)="volver()">← Volver</button>
+</div>

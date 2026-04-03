@@ -1,0 +1,51 @@
+<!--
+<div style="display: flex; justify-content: center; align-items: center; height: 100vh; width: 100vw;">
+    <img src="https://i.pinimg.com/736x/78/7e/95/787e95ed88ccd73df22c7a767ea38dcf.jpg" alt="Imagen de goku" style="max-width: 100%; max-height: 100%;">
+</div>
+-->
+<h1> DragonBall Page</h1>
+<hr/>
+
+<section class="row">
+    <div class="col-12 col-sm-6">
+        <h3>Agregar: {{name()}} </h3>
+        <input type="text" class="fornm-control" placeholder="Nombre" [value]="name()"
+        (change)="name.set(txtName.value)"
+        (input)="name.set(txtName.value)"
+        #txtName
+        
+        />
+
+        <h3>{{ power() }}</h3>
+        <input
+            type="number"
+            class="fornm-controlmt-2"
+            placeholder="Poder"
+            [value]="power()"
+            (input)="power.set(+txtPower.value)"
+            #txtPower
+        />
+        <input type="number" class="fornm-control mt-2" placeholder="Poder" />
+        <button (click)="addCharacter()" class="mt-2 btn btn-primary">Agregar</button>
+    </div>
+
+
+    <div class="col-12 col-sm-6">
+        <h3>Listado fuertes</h3>
+        <ol>
+            @for (character of characters(); track character.id) {
+                @if(character.power > 500){
+                <li>
+                    <span>{{character.name}}</span>
+                    <strong [class.text-danger]="character.power>9000"
+                            [class.text-info]="character.power <= 9000"
+                        >({{character.power}})
+                    </strong>
+                </li>
+                }@else {
+                    <li><strong>Aqui no hay nadie</strong></li>
+                }
+            }
+        </ol>
+    </div>
+</section>

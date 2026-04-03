@@ -1,0 +1,22 @@
+<!--
+<div style="display: flex; justify-content: center; align-items: center; height: 100vh; width: 100vw;">
+    <img src="https://i.pinimg.com/736x/78/7e/95/787e95ed88ccd73df22c7a767ea38dcf.jpg" alt="Imagen de goku" style="max-width: 100%; max-height: 100%;">
+</div>
+-->
+<h1> DragonBall Page</h1>
+<hr/>
+
+<section class="row">
+    <div class="col-12 col-sm-6">
+        <dragonball-character-add (newCharacter)="dragonballService.addCharacter($event)"></dragonball-character-add>
+    </div>
+
+
+    <div class="col-12 col-sm-6">
+
+        <drangonball-character-lis 
+        listname = "Listado de personajes"
+        [characters]="dragonballService.characters()"></drangonball-character-lis>
+        
+    </div>
+</section>

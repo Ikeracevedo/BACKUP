@@ -1,0 +1,37 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 40px;
+  background: #f3f4f6;
+}
+
+.contenedor {
+  background: #cd0a0a;
+  display: flex;
+  gap: 50px;
+}
+
+
+.box {
+  height: 120px;
+  color: white;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.box--red {
+  background: #ef4444;
+}
+
+.box--blue {
+  background: #3b82f6;
+}
+
+.box--green {
+  background: #22c55e;
+}

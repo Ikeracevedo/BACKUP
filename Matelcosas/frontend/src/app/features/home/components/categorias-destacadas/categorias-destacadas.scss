@@ -1,0 +1,153 @@
+.categories-section {
+  padding: 3rem 2rem;
+  background: #f9fafc;
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+
+    h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #222;
+    }
+
+    .view-all {
+      color: #007bff;
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.3s;
+      &:hover {
+        color: #0056b3;
+      }
+    }
+  }
+
+  /* ======================
+     Carrusel horizontal
+     ====================== */
+  .carousel {
+    display: flex;            /* 🔹 Hace que se alineen horizontalmente */
+    flex-wrap: nowrap;        /* 🔹 Evita que se apilen */
+    gap: 2.5rem;      /*Para mas separacion entre los circulos*/
+    overflow-x: auto;         /* 🔹 Permite scroll lateral */
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 1rem;
+    scroll-behavior: smooth;
+    justify-content: flex-start;
+
+    /* Scrollbar estilizado */
+    &::-webkit-scrollbar {
+      height: 8px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: #ccc;
+      border-radius: 4px;
+    }
+  }
+  .carousel-container {
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 1.5rem;
+    padding-bottom: 1rem 0;
+    scroll-behavior: smooth;
+
+    /* Quita scrollbar en Chrome/Edge */
+    &::-webkit-scrollbar {
+      height: 6px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: #ccc;
+      border-radius: 3px;
+    }
+  }
+
+  .categoria-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center;
+    flex: 0 0 calc(100% / 5) /* Muestra 5 categorias */ ;
+    max-width: 220px;
+    text-align: center;
+    color: #111;
+    text-decoration: none;
+    scroll-snap-align: start;
+     
+    @media (max-width: 1024px) {
+      flex: 0 0 calc(100% / 3); /* 3 visibles en pantallas medianas */
+    }
+
+    @media (max-width: 600px) {
+      flex: 0 0 calc(100% / 2); /* 2 visibles en móviles */
+    }
+
+    .circle {
+      width: 180px; /*Para agrandar el circulo*/
+      height: 180px;
+      border-radius: 50%;
+      background: #f7f7f7;
+;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 0 auto 0.75rem auto;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+      &:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+      }
+
+      img {
+        object-fit: contain;
+        width: 100%;
+        height: 100%;
+        padding: 10px;       /* 🔹 Espacio interno para no recortar bordes */
+      }
+    }
+
+    p {
+      margin-top: 0.5rem;
+      font-weight: 600;
+      font-size: 1rem;
+      width: 100%;
+      text-align: center;
+    }
+  }
+
+  .state {
+    text-align: center;
+    color: #666;
+    padding: 1rem;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .categories-section {
+    padding: 2rem 1rem;
+
+    .carousel-container {
+      gap: 1rem;
+    }
+
+    .categoria-card {
+      width: 110px;
+      .circle {
+        width: 110px;
+        height: 110px;
+      }
+    }
+  }
+}

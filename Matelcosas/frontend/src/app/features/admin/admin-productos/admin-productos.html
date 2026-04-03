@@ -1,0 +1,219 @@
+<div class="admin-productos-container">
+  <!-- Header con animación -->
+  <div class="header-section">
+    <div class="header-content">
+      <h1 class="main-title">
+        Gestión de Productos
+      </h1>
+      <p class="subtitle">Administra el catálogo completo de productos</p>
+    </div>
+    <div class="stats-container">
+      <div class="stats-badge products">
+        <span class="badge-number">{{ productos.length }}</span>
+        <span class="badge-label">Productos</span>
+      </div>
+      <div class="stats-badge categories">
+        <span class="badge-number">{{ categorias.length }}</span>
+        <span class="badge-label">Categorías</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Botón para mostrar/ocultar formulario -->
+  <div class="form-toggle-container">
+    <button
+      class="btn-toggle-form"
+      (click)="toggleFormulario()"
+      [class.active]="mostrarFormulario"
+    >
+      {{ mostrarFormulario ? 'Cerrar Formulario' : 'Nuevo Producto' }}
+    </button>
+  </div>
+
+  <!-- Componente de formulario -->
+  <app-crear-producto
+    *ngIf="mostrarFormulario"
+    [modoEdicion]="modoEdicion"
+    [productoEditando]="productoEditando"
+    (productoGuardado)="onProductoGuardado()"
+    (cancelado)="onFormularioCancelado()"
+  ></app-crear-producto>
+
+  <!-- Grid de productos con cards -->
+  <div class="productos-section">
+    <div class="section-header">
+      <h3 class="section-title">
+        <span class="icon">📋</span>
+        Todos los Productos
+      </h3>
+      <div class="view-toggle">
+        <button
+          class="toggle-btn"
+          [class.active]="vistaActual === 'grid'"
+          (click)="vistaActual = 'grid'"
+          title="Vista en Cuadrícula"
+        >
+          ⊞
+        </button>
+        <button
+          class="toggle-btn"
+          [class.active]="vistaActual === 'list'"
+          (click)="vistaActual = 'list'"
+          title="Vista en Lista"
+        >
+          ☰
+        </button>
+      </div>
+    </div>
+
+    <!-- Vista Grid -->
+    <div class="productos-grid" *ngIf="vistaActual === 'grid'">
+      <div
+        *ngFor="let p of productos; let i = index"
+        class="producto-card"
+        [class.editando]="productoEditando?._id === p._id"
+        [style.animation-delay]="(i * 0.05) + 's'"
+      >
+        <div class="card-badge" *ngIf="productoEditando?._id === p._id">
+          Editando
+        </div>
+
+        <!-- Badge de stock -->
+        <div class="stock-badge" [class.low-stock]="p.stockTotal < 10" [class.out-stock]="p.stockTotal === 0">
+          <span *ngIf="p.stockTotal > 0">📦 {{ p.stockTotal }}</span>
+          <span *ngIf="p.stockTotal === 0">❌ Agotado</span>
+        </div>
+
+        <div class="card-image">
+          <div class="image-placeholder" *ngIf="!p.imagenes || p.imagenes.length === 0 || !p.imagenes[0]">
+            <span class="placeholder-icon">🛍️</span>
+          </div>
+          <img *ngIf="p.imagenes && p.imagenes.length > 0 && p.imagenes[0]"
+               [src]="p.imagenes[0]"
+               [alt]="p.nombre"
+               class="product-image"
+          />
+          <div class="image-placeholder image-fallback">
+            <span class="placeholder-icon">🛍️</span>
+          </div>
+        </div>
+
+        <div class="card-content">
+          <div class="category-tag">{{ p.categoria || 'Sin categoría' }}</div>
+          <h4 class="card-title">{{ p.nombre }}</h4>
+          <p class="card-description">
+            {{ p.descripccionCorta || p.descripcionLarga || 'Sin descripción' }}
+          </p>
+
+          <div class="price-section">
+            <div class="price-group">
+              <span class="price-label">Precio:</span>
+              <span class="price-current">{{ p.precioBase | currency }}</span>
+            </div>
+            <div class="price-group" *ngIf="p.precioOferta && p.precioOferta > 0">
+              <span class="price-label">Oferta:</span>
+              <span class="price-offer">{{ p.precioOferta | currency }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-actions">
+          <button
+            (click)="editarProducto(p)"
+            class="action-btn edit-btn"
+            title="Editar"
+          >
+            <span class="btn-text">Editar</span>
+          </button>
+          <button
+            (click)="eliminarProducto(p._id)"
+            class="action-btn delete-btn"
+            title="Eliminar"
+          >
+            <span class="btn-text">Eliminar</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vista Lista -->
+    <div class="productos-list" *ngIf="vistaActual === 'list'">
+      <div
+        *ngFor="let p of productos; let i = index"
+        class="producto-item"
+        [class.editando]="productoEditando?._id === p._id"
+        [style.animation-delay]="(i * 0.03) + 's'"
+      >
+        <div class="item-badge" *ngIf="productoEditando?._id === p._id">
+          ✏️ Editando
+        </div>
+
+        <div class="item-image">
+          <div class="image-wrapper" *ngIf="!p.imagenes || p.imagenes.length === 0 || !p.imagenes[0]">
+            <span class="placeholder-icon">🛍️</span>
+          </div>
+          <img *ngIf="p.imagenes && p.imagenes.length > 0 && p.imagenes[0]"
+               [src]="p.imagenes[0]"
+               [alt]="p.nombre"
+               class="product-image-list"
+          />
+          <div class="image-wrapper image-fallback">
+            <span class="placeholder-icon">🛍️</span>
+          </div>
+        </div>
+
+        <div class="item-content">
+          <div class="item-header">
+            <h4 class="item-title">{{ p.nombre }}</h4>
+            <span class="category-tag-small">{{ p.categoria || 'Sin categoría' }}</span>
+          </div>
+          <p class="item-description">{{ p.descripccionCorta || p.descripcionLarga || 'Sin descripción' }}</p>
+          <div class="item-meta">
+            <span class="meta-item">
+              <span class="meta-icon">💵</span>
+              {{ p.precioBase | currency }}
+            </span>
+            <span class="meta-item" *ngIf="p.precioOferta && p.precioOferta > 0">
+              <span class="meta-icon">🏷️</span>
+              {{ p.precioOferta | currency }}
+            </span>
+            <span class="meta-item" [class.low-stock]="p.stockTotal < 10" [class.out-stock]="p.stockTotal === 0">
+              <span class="meta-icon">📦</span>
+              {{ p.stockTotal }} unidades
+            </span>
+          </div>
+        </div>
+
+        <div class="item-actions">
+          <button
+            (click)="editarProducto(p)"
+            class="action-btn edit-btn"
+            title="Editar"
+          >
+            <span class="btn-icon">✏️</span>
+            <span class="btn-text">Editar</span>
+          </button>
+          <button
+            (click)="eliminarProducto(p._id)"
+            class="action-btn delete-btn"
+            title="Eliminar"
+          >
+            <span class="btn-icon">🗑️</span>
+            <span class="btn-text">Eliminar</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Estado vacío -->
+    <div *ngIf="productos.length === 0" class="empty-state">
+      <div class="empty-icon">🛍️</div>
+      <h3 class="empty-title">No hay productos</h3>
+      <p class="empty-text">Crea tu primer producto para comenzar a vender</p>
+      <button class="btn btn-primary" (click)="toggleFormulario()">
+        <span class="btn-icon">➕</span>
+        Crear Primer Producto
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+<h3>Agregar: {{name()}} </h3>
+        <input type="text" class="fornm-control" placeholder="Nombre" [value]="name()"
+        (change)="name.set(txtName.value)"
+        (input)="name.set(txtName.value)"
+        #txtName    
+        
+        />
+
+        <h3>{{ power() }}</h3>
+        <input
+            type="number"
+            class="fornm-controlmt-2"
+            placeholder="Poder"
+            [value]="power()"
+            (input)="power.set(+txtPower.value)"
+            #txtPower
+        />
+        <input type="number" class="fornm-control mt-2" placeholder="prueba" />
+        <button (click)="addCharacter()" class="mt-2 btn btn-primary">Agregar</button>

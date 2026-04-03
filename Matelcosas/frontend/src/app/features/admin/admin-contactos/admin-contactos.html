@@ -1,0 +1,325 @@
+<div class="admin-contactos-container">
+  <!-- Header con animación -->
+  <div class="header-section">
+    <div class="header-content">
+      <h1 class="main-title">
+        <span class="icon">📬</span>
+        Bandeja de Contactos
+      </h1>
+      <p class="subtitle">Gestiona los mensajes de tus clientes</p>
+    </div>
+    <div class="stats-container">
+      <div class="stats-badge total">
+        <span class="badge-number">{{ estadisticas.total }}</span>
+        <span class="badge-label">Total</span>
+      </div>
+      <div class="stats-badge pending">
+        <span class="badge-number">{{ estadisticas.sinAtender }}</span>
+        <span class="badge-label">Pendientes</span>
+      </div>
+      <div class="stats-badge completed">
+        <span class="badge-number">{{ estadisticas.atendidos }}</span>
+        <span class="badge-label">Atendidos</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Barra de búsqueda y filtros -->
+  <div class="toolbar-section">
+    <div class="search-container">
+      <span class="search-icon">🔍</span>
+      <input
+        type="text"
+        [(ngModel)]="busqueda"
+        (input)="buscar()"
+        placeholder="Buscar por nombre, email, teléfono o mensaje..."
+        class="search-input"
+      />
+      <button
+        *ngIf="busqueda"
+        (click)="busqueda = ''; buscar()"
+        class="clear-search"
+      >
+        ✕
+      </button>
+    </div>
+
+    <div class="filters-container">
+      <button
+        class="filter-btn"
+        [class.active]="filtroActual === 'todos'"
+        (click)="cambiarFiltro('todos')"
+      >
+        <span class="filter-icon">📋</span>
+        Todos
+      </button>
+      <button
+        class="filter-btn"
+        [class.active]="filtroActual === 'sin-atender'"
+        (click)="cambiarFiltro('sin-atender')"
+      >
+        <span class="filter-icon">🔔</span>
+        Pendientes
+      </button>
+      <button
+        class="filter-btn"
+        [class.active]="filtroActual === 'atendidos'"
+        (click)="cambiarFiltro('atendidos')"
+      >
+        <span class="filter-icon">✅</span>
+        Atendidos
+      </button>
+    </div>
+
+    <div class="view-toggle">
+      <button
+        class="toggle-btn"
+        [class.active]="vistaActual === 'grid'"
+        (click)="vistaActual = 'grid'"
+        title="Vista en Cuadrícula"
+      >
+        ⊞
+      </button>
+      <button
+        class="toggle-btn"
+        [class.active]="vistaActual === 'list'"
+        (click)="vistaActual = 'list'"
+        title="Vista en Lista"
+      >
+        ☰
+      </button>
+    </div>
+  </div>
+
+  <!-- Estado de carga -->
+  <div *ngIf="cargando" class="loading-state">
+    <div class="loader"></div>
+    <p>Cargando mensajes...</p>
+  </div>
+
+  <!-- Contenedor principal con lista y detalle -->
+  <div class="contactos-wrapper" *ngIf="!cargando">
+    <!-- Lista de contactos - Vista Grid -->
+    <div class="contactos-grid" *ngIf="vistaActual === 'grid' && !contactoSeleccionado">
+      <div
+        *ngFor="let c of contactosPorMostrar; let i = index"
+        class="contacto-card"
+        [class.sin-atender]="c.estado === false || c.estado === 'Sin atender'"
+        [class.atendido]="c.estado === true || c.estado === 'Atendido'"
+        (click)="seleccionarContacto(c)"
+        [style.animation-delay]="(i * 0.05) + 's'"
+      >
+        <div class="card-header">
+          <div class="avatar">
+            <span>{{ c.nombre?.charAt(0)?.toUpperCase() || '?' }}</span>
+          </div>
+          <div class="header-info">
+            <h4 class="contact-name">{{ c.nombre || 'Sin nombre' }}</h4>
+            <p class="contact-email">{{ c.correo || 'Sin email' }}</p>
+          </div>
+          <div class="status-badge" [class.pending]="c.estado === false || c.estado === 'Sin atender'">
+            <span *ngIf="c.estado === false || c.estado === 'Sin atender'">🔔 Nuevo</span>
+            <span *ngIf="c.estado === true || c.estado === 'Atendido'">✅ Atendido</span>
+          </div>
+        </div>
+
+        <div class="card-body">
+          <div class="info-row">
+            <span class="info-icon">📞</span>
+            <span class="info-text">{{ c.telefono || 'Sin teléfono' }}</span>
+          </div>
+          <div class="message-preview">
+            <span class="message-icon">💬</span>
+            <p class="message-text">{{ c.mensaje || 'Sin mensaje' }}</p>
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <span class="date-info">
+            <span class="date-icon">📅</span>
+            {{ (c.fecha | date:'dd/MM/yyyy HH:mm') || 'Sin fecha' }}
+          </span>
+          <div class="actions" (click)="$event.stopPropagation()">
+            <button
+              class="action-btn check-btn"
+              (click)="marcarComoAtendido(c, $event)"
+              [title]="(c.estado === true || c.estado === 'Atendido') ? 'Marcar como pendiente' : 'Marcar como atendido'"
+            >
+              <span *ngIf="c.estado === false || c.estado === 'Sin atender'">✓</span>
+              <span *ngIf="c.estado === true || c.estado === 'Atendido'">↺</span>
+            </button>
+            <button
+              class="action-btn delete-btn"
+              (click)="eliminarContacto(c._id, $event)"
+              title="Eliminar"
+            >
+              🗑️
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lista de contactos - Vista List -->
+    <div class="contactos-list" *ngIf="vistaActual === 'list' && !contactoSeleccionado">
+      <div
+        *ngFor="let c of contactosPorMostrar; let i = index"
+        class="contacto-item"
+        [class.sin-atender]="c.estado === false || c.estado === 'Sin atender'"
+        [class.atendido]="c.estado === true || c.estado === 'Atendido'"
+        (click)="seleccionarContacto(c)"
+        [style.animation-delay]="(i * 0.03) + 's'"
+      >
+        <div class="item-status" [class.pending]="c.estado === false || c.estado === 'Sin atender'"></div>
+
+        <div class="avatar-list">
+          <span>{{ c.nombre?.charAt(0)?.toUpperCase() || '?' }}</span>
+        </div>
+
+        <div class="item-content">
+          <div class="content-header">
+            <h4 class="contact-name">{{ c.nombre || 'Sin nombre' }}</h4>
+            <span class="contact-tag" *ngIf="c.estado === false || c.estado === 'Sin atender'">Nuevo</span>
+          </div>
+          <p class="contact-email">{{ c.correo || 'Sin email' }}</p>
+          <p class="message-preview-list">{{ c.mensaje || 'Sin mensaje' }}</p>
+        </div>
+
+        <div class="item-meta">
+          <span class="meta-info">
+            <span class="meta-icon">📞</span>
+            {{ c.telefono || 'N/A' }}
+          </span>
+          <span class="meta-info">
+            <span class="meta-icon">📅</span>
+            {{ (c.fecha | date:'dd/MM/yyyy HH:mm') || 'N/A' }}
+          </span>
+        </div>
+
+        <div class="item-actions" (click)="$event.stopPropagation()">
+          <button
+            class="action-btn check-btn"
+            (click)="marcarComoAtendido(c, $event)"
+            [title]="(c.estado === true || c.estado === 'Atendido') ? 'Marcar como pendiente' : 'Marcar como atendido'"
+          >
+            <span *ngIf="c.estado === false || c.estado === 'Sin atender'">✓</span>
+            <span *ngIf="c.estado === true || c.estado === 'Atendido'">↺</span>
+          </button>
+          <button
+            class="action-btn delete-btn"
+            (click)="eliminarContacto(c._id, $event)"
+            title="Eliminar"
+          >
+            🗑️
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel de detalle del contacto -->
+    <div class="contacto-detalle" *ngIf="contactoSeleccionado">
+      <div class="detalle-header">
+        <button class="btn-back" (click)="cerrarDetalle()">
+          <span class="back-icon">←</span>
+          Volver
+        </button>
+        <div class="detalle-actions">
+          <button
+            class="btn-action primary"
+            (click)="marcarComoAtendido(contactoSeleccionado)"
+          >
+            <span class="btn-icon">
+              {{ (contactoSeleccionado.estado === true || contactoSeleccionado.estado === 'Atendido') ? '↺' : '✓' }}
+            </span>
+            {{ (contactoSeleccionado.estado === true || contactoSeleccionado.estado === 'Atendido')
+              ? 'Marcar Pendiente'
+              : 'Marcar Atendido' }}
+          </button>
+          <button
+            class="btn-action danger"
+            (click)="eliminarContacto(contactoSeleccionado._id)"
+          >
+            <span class="btn-icon">🗑️</span>
+            Eliminar
+          </button>
+        </div>
+      </div>
+
+      <div class="detalle-body">
+        <div class="detalle-profile">
+          <div class="profile-avatar">
+            <span>{{ contactoSeleccionado.nombre?.charAt(0)?.toUpperCase() || '?' }}</span>
+          </div>
+          <div class="profile-info">
+            <h2 class="profile-name">{{ contactoSeleccionado.nombre || 'Sin nombre' }}</h2>
+            <div class="status-tag" [class.pending]="contactoSeleccionado.estado === false || contactoSeleccionado.estado === 'Sin atender'">
+              <span *ngIf="contactoSeleccionado.estado === false || contactoSeleccionado.estado === 'Sin atender'">
+                🔔 Mensaje Pendiente
+              </span>
+              <span *ngIf="contactoSeleccionado.estado === true || contactoSeleccionado.estado === 'Atendido'">
+                ✅ Mensaje Atendido
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="detalle-section">
+          <h3 class="section-title">
+            <span class="section-icon">📋</span>
+            Información de Contacto
+          </h3>
+          <div class="info-grid">
+            <div class="info-card">
+              <div class="info-card-icon">📧</div>
+              <div class="info-card-content">
+                <span class="info-card-label">Email</span>
+                <span class="info-card-value">{{ contactoSeleccionado.correo || 'No proporcionado' }}</span>
+              </div>
+            </div>
+            <div class="info-card">
+              <div class="info-card-icon">📞</div>
+              <div class="info-card-content">
+                <span class="info-card-label">Teléfono</span>
+                <span class="info-card-value">{{ contactoSeleccionado.telefono || 'No proporcionado' }}</span>
+              </div>
+            </div>
+            <div class="info-card full-width">
+              <div class="info-card-icon">📅</div>
+              <div class="info-card-content">
+                <span class="info-card-label">Fecha de Recepción</span>
+                <span class="info-card-value">
+                  {{ (contactoSeleccionado.fecha | date:'EEEE, d MMMM yyyy - HH:mm') || 'No disponible' }}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="detalle-section">
+          <h3 class="section-title">
+            <span class="section-icon">💬</span>
+            Mensaje
+          </h3>
+          <div class="message-box">
+            <p>{{ contactoSeleccionado.mensaje || 'No hay mensaje' }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Estado vacío -->
+    <div *ngIf="contactosPorMostrar.length === 0 && !cargando" class="empty-state">
+      <div class="empty-icon">📭</div>
+      <h3 class="empty-title">
+        {{ filtroActual === 'todos' ? 'No hay mensajes' :
+           filtroActual === 'sin-atender' ? 'No hay mensajes pendientes' :
+           'No hay mensajes atendidos' }}
+      </h3>
+      <p class="empty-text">
+        {{ busqueda ? 'No se encontraron resultados para tu búsqueda' :
+           filtroActual === 'sin-atender' ? '¡Excelente! Todos los mensajes han sido atendidos' :
+           'Aquí aparecerán los mensajes de contacto' }}
+      </p>
+    </div>
+  </div>
+</div>

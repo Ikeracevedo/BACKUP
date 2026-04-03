@@ -1,0 +1,358 @@
+<div class="formulario-card" [class.editing-mode]="modoEdicion">
+    <!-- Cabecera del componente de edicion o creacion-->
+  <div class="card-header">
+    <div class="header-icon">
+    </div>
+    <!-- Titulo que muestra si se esta editando o creando el producto -->
+    <h3>{{ modoEdicion ? 'Editar Producto' : 'Nuevo Producto' }}</h3>
+  </div>
+
+  <!-- Información básica -->
+  <div class="formulario">
+    <div class="form-section">
+      <h4 class="section-title">Información Básica</h4>
+      <div class="form-grid">
+        <!-- Input del nombre del producto -->
+        <div class="input-group full-width">
+          <label class="input-label">
+            <span class="label-icon">🏷️</span>
+            Nombre del Producto
+          </label>
+          <input
+            [(ngModel)]="nuevoProducto.nombre"
+            placeholder="Ej: Laptop HP Pavilion 15..."
+            class="input-field"
+            [class.filled]="nuevoProducto.nombre"
+          />
+        </div>
+
+        <!-- Input de categoria -->
+        <!-- Input de categoria -->
+        <div class="input-group">
+        <label class="input-label">
+            <span class="label-icon">📦</span>
+            Categoría
+        </label>
+        <select
+            [(ngModel)]="nuevoProducto.categoria"
+            (ngModelChange)="onCategoriaChange()"
+            class="input-field select-field"
+            [class.filled]="nuevoProducto.categoria"
+        >
+            <option value="">Seleccionar categoría</option>
+            <option *ngFor="let cat of categorias" [value]="cat.nombre">
+            {{ cat.nombre }}
+            </option>
+        </select>
+        </div>
+
+
+        <!-- Input sub categoria -->
+        <div class="input-group">
+          <label class="input-label">
+            <span class="label-icon">📂</span>
+            SubCategoría (Opcional)
+          </label>
+          <input
+            [(ngModel)]="nuevoProducto.subCategoria"
+            placeholder="Ej: Iluminación"
+            class="input-field"
+            [class.filled]="nuevoProducto.subCategoria"
+          />
+        </div>
+
+        <div class="input-group">
+          <label class="input-label">
+            <span class="label-icon">📊</span>
+            Stock Total
+          </label>
+          <input
+            type="number"
+            [(ngModel)]="nuevoProducto.stockTotal"
+            placeholder="0"
+            class="input-field"
+            [class.filled]="nuevoProducto.stockTotal > 0"
+          />
+        </div>
+
+        <div class="input-group">
+          <label class="input-label">
+            <span class="label-icon">🔘</span>
+            Estado
+          </label>
+          <select
+            [(ngModel)]="nuevoProducto.estado"
+            class="input-field select-field"
+            [class.filled]="nuevoProducto.estado"
+          >
+            <option value="activo">Activo</option>
+            <option value="inactivo">Inactivo</option>
+          </select>
+        </div>
+
+        <div class="input-group full-width">
+          <label class="input-label">
+            <span class="label-icon">🏷️</span>
+            Tags (Etiquetas) - Separadas por comas
+          </label>
+          <input
+            [ngModel]="nuevoProducto.tags.join(', ')"
+            (ngModelChange)="processTags($event)"
+            placeholder="Ej: iluminacion, led, 15w"
+            class="input-field"
+            [class.filled]="nuevoProducto.tags.length > 0"
+          />
+          <small style="color: #7f8c8d; font-size: 12px; margin-top: 4px;">
+            Etiquetas actuales: {{ nuevoProducto.tags.length > 0 ? nuevoProducto.tags.join(', ') : 'Ninguna' }}
+          </small>
+        </div>
+
+        <div class="input-group full-width">
+          <label class="input-label">
+            <span class="label-icon">📝</span>
+            Descripción Corta
+          </label>
+          <input
+            [(ngModel)]="nuevoProducto.descripccionCorta"
+            placeholder="Breve descripción del producto..."
+            class="input-field"
+            [class.filled]="nuevoProducto.descripccionCorta"
+          />
+        </div>
+
+        <div class="input-group full-width">
+          <label class="input-label">
+            <span class="label-icon">📄</span>
+            Descripción Larga
+          </label>
+          <textarea
+            [(ngModel)]="nuevoProducto.descripcionLarga"
+            placeholder="Descripción detallada del producto, características, especificaciones..."
+            class="input-field textarea-field"
+            rows="4"
+            [class.filled]="nuevoProducto.descripcionLarga"
+          ></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- Precios -->
+    <div class="form-section">
+      <h4 class="section-title">💰 Precios y Descuentos</h4>
+      <div class="form-grid">
+        <div class="input-group">
+          <label class="input-label">
+            <span class="label-icon">💵</span>
+            Precio Base
+          </label>
+          <input
+            type="number"
+            [(ngModel)]="nuevoProducto.precioBase"
+            placeholder="0.00"
+            class="input-field"
+            [class.filled]="nuevoProducto.precioBase > 0"
+          />
+        </div>
+
+        <div class="input-group">
+          <label class="input-label">
+            <span class="label-icon">🏷️</span>
+            Precio Oferta
+          </label>
+          <input
+            type="number"
+            [(ngModel)]="nuevoProducto.precioOferta"
+            placeholder="0.00"
+            class="input-field"
+            [class.filled]="nuevoProducto.precioOferta > 0"
+          />
+        </div>
+
+        <div class="input-group">
+          <label class="input-label">
+            <span class="label-icon">📉</span>
+            % Descuento
+          </label>
+          <input
+            type="number"
+            [(ngModel)]="nuevoProducto.porcentajeDescuento"
+            placeholder="0"
+            class="input-field"
+            [class.filled]="nuevoProducto.porcentajeDescuento > 0"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- Características Generales del Producto -->
+    <div class="form-section">
+      <h4 class="section-title">⚙️ Características Generales</h4>
+      <div class="caracteristicas-container">
+        <div *ngFor="let key of getCaracteristicasKeys(); let i = index" class="caracteristica-item">
+          <div class="input-group">
+            <label class="input-label">Nombre de la característica</label>
+            <input
+              [value]="key"
+              (change)="updateCaracteristicaKey(key, $event)"
+              placeholder="Ej: voltaje, marca, material"
+              class="input-field input-small"
+            />
+          </div>
+          <div class="input-group">
+            <label class="input-label">Valor</label>
+            <input
+              [(ngModel)]="nuevoProducto.caracteristicas[key]"
+              placeholder="Ej: 110V, Philips, Acero"
+              class="input-field input-small"
+            />
+          </div>
+          <button
+            (click)="eliminarCaracteristica(key)"
+            class="btn btn-delete-small"
+            type="button"
+            style="align-self: flex-end;"
+          >
+            🗑️
+          </button>
+        </div>
+        <button (click)="agregarCaracteristica()" class="btn btn-add-item" type="button">
+          <span class="btn-icon">➕</span>
+          Agregar Característica
+        </button>
+      </div>
+    </div>
+
+    <!-- Imágenes -->
+    <div class="form-section">
+      <h4 class="section-title">🖼️ Imágenes del Producto</h4>
+      <div class="images-container">
+        <div *ngFor="let img of nuevoProducto.imagenes; let i = index" class="image-input-group">
+          <input
+            [(ngModel)]="nuevoProducto.imagenes[i]"
+            placeholder="URL de la imagen"
+            class="input-field"
+          />
+          <button
+            *ngIf="nuevoProducto.imagenes.length > 1"
+            (click)="nuevoProducto.imagenes.splice(i, 1)"
+            class="btn btn-delete-small"
+            type="button"
+          >
+            🗑️
+          </button>
+        </div>
+        <button (click)="agregarImagen()" class="btn btn-add-item" type="button">
+          <span class="btn-icon">➕</span>
+          Agregar Imagen
+        </button>
+      </div>
+    </div>
+
+    <!-- Variaciones -->
+    <div class="form-section">
+      <h4 class="section-title">🎨 Variaciones del Producto</h4>
+      <div class="variaciones-container">
+        <div *ngFor="let v of nuevoProducto.variaciones; let i = index" class="variacion-card">
+          <div class="variacion-header">
+            <span class="variacion-number">Variación #{{ i + 1 }}</span>
+            <button
+              *ngIf="nuevoProducto.variaciones.length > 1"
+              (click)="eliminarVariacion(i)"
+              class="btn btn-delete-small"
+              type="button"
+            >
+              🗑️ Eliminar
+            </button>
+          </div>
+
+          <div class="variacion-grid">
+            <div class="input-group">
+              <label class="input-label">Nombre</label>
+              <input
+                [(ngModel)]="v.nombre"
+                placeholder="Ej: Talla M, Color Azul"
+                class="input-field input-small"
+              />
+            </div>
+            <div class="input-group">
+              <label class="input-label">Precio</label>
+              <input
+                type="number"
+                [(ngModel)]="v.precio"
+                placeholder="0.00"
+                class="input-field input-small"
+              />
+            </div>
+            <div class="input-group">
+              <label class="input-label">Stock</label>
+              <input
+                type="number"
+                [(ngModel)]="v.stock"
+                placeholder="0"
+                class="input-field input-small"
+              />
+            </div>
+          </div>
+
+          <!-- Características de la Variación -->
+          <div class="variacion-caracteristicas">
+            <label class="input-label" style="margin-top: 15px; margin-bottom: 10px;">
+              <span class="label-icon">⚙️</span>
+              Características de esta variación
+            </label>
+            <div *ngFor="let key of getVariacionCaracteristicasKeys(i); let j = index" class="caracteristica-item-small">
+              <input
+                [value]="key"
+                (change)="updateVariacionCaracteristicaKey(i, key, $event)"
+                placeholder="Nombre: color, temperatura..."
+                class="input-field input-small"
+                style="flex: 1;"
+              />
+              <input
+                [(ngModel)]="v.caracteristicas[key]"
+                placeholder="Valor: Blanco cálido, 2700K..."
+                class="input-field input-small"
+                style="flex: 1;"
+              />
+              <button
+                (click)="eliminarVariacionCaracteristica(i, key)"
+                class="btn btn-delete-small"
+                type="button"
+              >
+                🗑️
+              </button>
+            </div>
+            <button (click)="agregarVariacionCaracteristica(i)" class="btn btn-add-item-small" type="button">
+              <span class="btn-icon">➕</span>
+              Agregar Característica
+            </button>
+          </div>
+        </div>
+
+        <button (click)="agregarVariacion()" class="btn btn-add-item" type="button">
+          <span class="btn-icon">➕</span>
+          Agregar Variación
+        </button>
+      </div>
+    </div>
+
+    <!-- Botones de acción -->
+    <div class="botones-formulario">
+      <button
+        (click)="guardarProducto()"
+        class="btn btn-primary"
+        [disabled]="!nuevoProducto.nombre.trim()"
+      >
+        <span class="btn-icon">{{ modoEdicion ? '💾' : '➕' }}</span>
+        {{ modoEdicion ? 'Actualizar Producto' : 'Crear Producto' }}
+      </button>
+      <button
+        (click)="cancelarEdicion()"
+        class="btn btn-secondary"
+      >
+        <span class="btn-icon">❌</span>
+        Cancelar
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,189 @@
+// Formulario principal
+.formulario-principal {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    margin-bottom: 35px;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    animation: fadeInUp 0.7s ease;
+  
+    &:hover {
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    }
+  
+    &.editing-mode {
+      border-color: #ffc107;
+      background: linear-gradient(to bottom, #fffef7 0%, #ffffff 100%);
+      box-shadow: 0 5px 20px rgba(255, 193, 7, 0.2);
+    }
+  
+    @media (max-width: 768px) {
+      padding: 20px;
+    }
+  }
+  
+//Seccion superior del formulario
+.cabecera {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #e0e0e0; // ← CAMBIADO
+
+  .cabecera-icono {
+    font-size: 28px;
+    animation: pulse 2s infinite;
+  }
+
+  h3 {
+    margin: 0;
+    color: #2c3e50; // ← CAMBIADO
+    font-size: 22px;
+    font-weight: 600;
+  }
+}
+
+// Formulario
+.formulario {
+  display: grid;
+  gap: 20px;
+}
+
+//Espacio de inputs
+.grupo-input {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+//Etiqueta de entrada
+.input-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  color: #2c3e50; // ← CAMBIADO
+  font-size: 14px;
+}
+
+//Campo de inputs
+.input-field {
+  width: 100%;
+  padding: 14px 18px;
+  border: 2px solid #e0e0e0; // ← CAMBIADO
+  border-radius: 12px;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  background: white;
+  font-family: inherit;
+
+  &:focus {
+    outline: none;
+    border-color: #667eea; // ← CAMBIADO
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+    transform: translateY(-2px);
+  }
+
+  &.filled {
+    border-color: #27ae60;
+    background: rgba(39, 174, 96, 0.02);
+  }
+
+  &::placeholder {
+    color: #bdc3c7;
+  }
+
+  &.textarea-field {
+    resize: vertical;
+    min-height: 100px;
+    line-height: 1.6;
+  }
+}
+
+// Botones principales
+.btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: inherit;
+
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .btn-icon {
+    font-size: 18px;
+  }
+}
+
+.btn-primario {
+  background: var(--degradado-azul);
+  color: white;
+
+  &:hover:not(:disabled) {
+    background: var(--degradado-azul);
+  }
+}
+
+.btn-secundario {
+  background: var(--degradado-azul);
+  color: white;
+
+  &:hover:not(:disabled) {
+    background: var(--degradado-azul);
+  }
+}
+
+//Botones del formulario
+.botones-formulario {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+  }
+}
+
+// Animaciones necesarias
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}

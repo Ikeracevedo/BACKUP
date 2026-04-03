@@ -1,0 +1,121 @@
+@use "sass:color";
+
+.banner {
+  width: 100%;
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(100deg, #007bff 0%, #66b2ff 100%);
+  padding: 4rem 6rem;
+  box-sizing: border-box;
+  overflow: hidden;
+
+  .banner__content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4rem;
+    max-width: 1300px;
+    width: 100%;
+  }
+
+  /* --- Texto a la izquierda --- */
+  .banner__text {
+    flex: 1 1 50%;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+
+    .banner__subtitle {
+      font-size: 1.3rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+      margin-bottom: 1rem;
+    }
+
+    .banner__title {
+      font-size: 4.5rem; /* 🔹 Más grande */
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+      margin-top: -2rem;
+
+      span {
+        color: #ffde59; /* Amarillo eléctrico */
+      }
+    }
+
+    .banner__description {
+      font-size: 1.5rem;
+      color: #e8e8e8;
+      margin-bottom: 1.5rem;
+      max-width: 500px;
+    }
+
+    button.banner__btn {
+        background-color: #f1c40f;
+        border: none;
+        color: white;
+        font-size: 1.1rem;
+        font-weight: 600;
+        padding: 1rem 1.5rem !important;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: background 0.3s ease, transform 0.2s ease;
+        width: fit-content; /* 🔹 que se ajuste al texto */
+
+        &:hover {
+        background-color: #d4ac0d;
+        transform: scale(1.05);
+        }
+    }
+  }
+
+  /* --- Imagen a la derecha --- */
+  .banner__image {
+    flex: 1 1 50%;
+    display: flex;
+    justify-content: center;
+
+    img {
+      width: 100%;
+      max-width: 1200px;
+      border-radius: 20px;
+      object-fit: cover;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+      transition: transform 0.3s ease;
+    }
+
+    img:hover {
+      transform: scale(1.03);
+    }
+  }
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .banner {
+    padding: 3rem 2rem;
+
+    .banner__content {
+      flex-direction: column-reverse;
+      text-align: center;
+      gap: 2rem;
+    }
+
+    .banner__text {
+      align-items: center;
+
+      .banner__title {
+        font-size: 2.4rem;
+      }
+    }
+
+    .banner__image img {
+      max-width: 400px;
+    }
+  }
+}
