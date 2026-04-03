@@ -1,0 +1,11 @@
+
+Cuenta Hotmail
+
+Correo: matelcodesarrollo@hotmail.com
+Contraseña: Matelco2025*
+
+Cuenta de Cloudinary - Para toda la gestion de imagenes en linea
+
+Correo: matelcodesarrollo@hotmail.com
+Contraseña: Matelco2025*
+Url: https://cloudinary.com/
